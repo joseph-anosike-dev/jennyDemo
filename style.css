@@ -1018,10 +1018,6 @@
             display: block;
             }
 
-        .faq-contain {
-            display: grid;
-        }
-
         .faq-question {
             background: linear-gradient(#fff, #eee);
             border-radius: 8px;
@@ -1030,6 +1026,11 @@
             padding-top: 17px;
             padding-left: 20px;
             padding-right: 20px;
+        }
+
+        .faq-header {
+            height: 100px;
+            background: #e0e0e0;
         }
 
 .announcement-marquee {
