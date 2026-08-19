@@ -4,1041 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JENNYCEO COLLECTION | Pre-Order Bulk Importation</title>
-    <style>
-        /* ==================================================
-           CSS VARIABLES & RESET
-           ================================================== */
-        :root {
-            --off-white: #F8F5EF;
-            --matte-black: #171717;
-            --pink-red: #D93663;
-            --gold: #C9A227;
-            
-            --text-dark: #2A2A2A;
-            --text-light: #F8F5EF;
-            --text-muted: #666666;
-            
-            --border-radius: 8px;
-            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            --transition: all 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--off-white);
-            color: var(--text-dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .app-main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        img {
-            max-width: 100%;
-            display: block;
-        }
-
-        /* Typography */
-        h1, h2, h3, h4 {
-            line-height: 1.2;
-            font-weight: 700;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 2rem auto;
-            font-size: 1.1rem;
-        }
-
-        section {
-            padding: 5rem 5%;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.8rem;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            text-align: center;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background-color: var(--pink-red);
-            color: var(--text-light);
-        }
-
-        .btn-primary:hover {
-            background-color: #B82A52;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--matte-black);
-            border: 2px solid var(--matte-black);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--matte-black);
-            color: var(--text-light);
-        }
-
-        .btn-gold {
-            background-color: var(--gold);
-            color: var(--matte-black);
-        }
-
-        .btn-gold:hover {
-            background-color: #B38E22;
-        }
-
-        /* ==================================================
-           NAVIGATION
-           ================================================== */
-        nav {
-            position: sticky;
-            top: 0;
-            background-color: var(--matte-black);
-            color: var(--text-light);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .brand {
-            font-size: 1.25rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .brand-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--gold);
-            border-radius: 50%;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--gold);
-        }
-
-        /* Active state for navigation links */
-        .nav-links a:not(.nav-cta).active {
-            color: var(--pink-red);
-        }
-
-        .nav-cta {
-            background-color: var(--pink-red);
-            color: white;
-            padding: 0.5rem 1.2rem;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-        }
-
-        .nav-cta:hover {
-            background-color: #B82A52;
-            color: white;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-
-        .hamburger span {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background-color: var(--text-light);
-            transition: var(--transition);
-        }
-
-        /* ==================================================
-           APP VIEWS ARCHITECTURE
-           ================================================== */
-        .view-section {
-            display: none;
-            opacity: 0;
-        }
-
-        .view-section.active {
-            display: block;
-            animation: fadeInView 0.5s forwards ease-out;
-        }
-
-        @keyframes fadeInView {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ==================================================
-           HERO SECTION
-           ================================================== */
-        .hero {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            min-height: calc(100vh - 80px);
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            color: var(--matte-black);
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-            max-width: 90%;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .hero-card {
-            background-color: var(--matte-black);
-            color: var(--text-light);
-            padding: 3rem;
-            border-radius: var(--border-radius);
-            border-top: 5px solid var(--gold);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .hero-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            color: var(--off-white);
-        }
-
-        .route-option {
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            margin-bottom: 1rem;
-            border-left: 3px solid var(--pink-red);
-        }
-
-        .route-option h4 {
-            color: var(--gold);
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .route-option p {
-            color: #bbb;
-            font-size: 0.95rem;
-        }
-
-        /* ==================================================
-           STOREFRONT / PRE-ORDER
-           ================================================== */
-        .store-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .product-card {
-            background-color: #fff;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-            border: 1px solid rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .product-image {
-            height: 350px;
-            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #aaa;
-            font-size: 3rem;
-        }
-
-        .product-info {
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .product-info h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .product-info p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            flex-grow: 1;
-        }
-
-        .product-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-            border-top: 1px solid #eee;
-            padding-top: 1rem;
-        }
-
-        .product-price {
-            font-weight: 700;
-            color: var(--pink-red);
-            font-size: 1.1rem;
-        }
-
-        /* ==================================================
-           HOW IT WORKS
-           ================================================== */
-        .how-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .step-card {
-            background-color: #fff;
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            position: relative;
-            border-bottom: 3px solid var(--gold);
-        }
-
-        .step-number {
-            font-size: 3rem;
-            font-weight: 800;
-            color: rgba(201, 162, 39, 0.2);
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            line-height: 1;
-        }
-
-        .step-card h3 {
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .step-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ==================================================
-           SHIPPING
-           ================================================== */
-        .shipping-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .shipping-card {
-            background-color: #fff;
-            padding: 2.5rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .shipping-card h3 {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--matte-black);
-        }
-
-        .shipping-card ul {
-            margin-bottom: 0;
-        }
-
-        .shipping-card li {
-            margin-bottom: 0.8rem;
-            padding-left: 1.5rem;
-            position: relative;
-            color: var(--text-muted);
-        }
-
-        .shipping-card li::before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: var(--pink-red);
-            font-weight: bold;
-        }
-
-        .shipping-warning {
-            background-color: rgba(217, 54, 99, 0.1);
-            border-left: 4px solid var(--pink-red);
-            padding: 1.5rem;
-            border-radius: 0 var(--border-radius) var(--border-radius) 0;
-            color: var(--matte-black);
-        }
-
-        /* ==================================================
-           BUSINESS POLICY
-           ================================================== */
-        .policy-section {
-            background-color: var(--matte-black);
-            color: var(--text-light);
-        }
-
-        .policy-section .section-title, 
-        .policy-section .section-subtitle {
-            color: var(--text-light);
-        }
-
-        .policy-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .policy-item {
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            display: flex;
-            gap: 15px;
-            align-items: flex-start;
-        }
-
-        .policy-icon {
-            color: var(--gold);
-            font-size: 1.2rem;
-            line-height: 1;
-            margin-top: 3px;
-        }
-
-        .policy-item p {
-            font-size: 0.95rem;
-            color: #ddd;
-        }
-
-        /* ==================================================
-           ACADEMY (COURSE)
-           ================================================== */
-        .academy-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            overflow: hidden;
-        }
-
-        .academy-header {
-            background-color: var(--matte-black);
-            color: var(--gold);
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .academy-header h3 {
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
-            font-size: 1.8rem;
-        }
-
-        .auth-tabs {
-            display: flex;
-            border-bottom: 1px solid #eee;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 1.2rem;
-            background: none;
-            border: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: var(--transition);
-        }
-
-        .tab-btn.active {
-            color: var(--pink-red);
-            border-bottom: 3px solid var(--pink-red);
-        }
-
-        .tab-content {
-            display: none;
-            padding: 2rem;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-family: inherit;
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--pink-red);
-            box-shadow: 0 0 0 2px rgba(217, 54, 99, 0.1);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-        }
-
-        .checkbox-group input {
-            margin-top: 4px;
-        }
-
-        /* Academy Dropdown */
-        .academy-dropdown {
-            background-color: var(--off-white);
-            padding: 2rem;
-            border-top: 1px solid #eee;
-        }
-
-        details {
-            background-color: #fff;
-            border: 1px solid #eee;
-            border-radius: var(--border-radius);
-            margin-bottom: 0.5rem;
-            overflow: hidden;
-        }
-
-        summary {
-            padding: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #fff;
-        }
-
-        summary::-webkit-details-marker {
-            display: none;
-        }
-
-        summary::after {
-            content: '+';
-            color: var(--pink-red);
-            font-size: 1.5rem;
-            line-height: 1;
-        }
-
-        details[open] summary::after {
-            content: '−';
-        }
-
-        details[open] summary {
-            border-bottom: 1px solid #eee;
-        }
-
-        .details-content {
-            padding: 1.2rem;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            background-color: #fafafa;
-        }
-
-        .course-module {
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px dashed #ddd;
-        }
-
-        .course-module:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-
-        .course-module h4 {
-            color: var(--matte-black);
-            margin-bottom: 0.3rem;
-            font-size: 1rem;
-        }
-
-        /* ==================================================
-           CONTACT SECTION
-           ================================================== */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 3rem;
-            background-color: #fff;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--box-shadow);
-        }
-
-        .contact-info {
-            background-color: var(--matte-black);
-            color: var(--text-light);
-            padding: 3rem;
-        }
-
-        .contact-info h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--off-white);
-        }
-
-        .contact-info p {
-            color: #bbb;
-            margin-bottom: 2rem;
-        }
-
-        .contact-list {
-            list-style: none;
-        }
-
-        .contact-list li {
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #ddd;
-        }
-
-        .contact-list li::before {
-            content: '✓';
-            color: var(--gold);
-        }
-
-        .contact-form {
-            padding: 3rem;
-        }
-
-        /* ==================================================
-           BOTTOM CTA
-           ================================================== */
-        .bottom-cta {
-            text-align: center;
-            background-color: var(--off-white);
-            padding: 6rem 5%;
-            border-top: 1px solid #eee;
-        }
-
-        .bottom-cta h2 {
-            font-size: 2.5rem;
-            color: var(--matte-black);
-            margin-bottom: 1rem;
-        }
-
-        .bottom-cta p {
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        /* ==================================================
-           FOOTER
-           ================================================== */
-        footer {
-            background-color: var(--matte-black);
-            color: var(--text-light);
-            padding: 4rem 5% 2rem;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-brand h3 {
-            color: var(--off-white);
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .footer-brand p {
-            color: #aaa;
-            font-size: 0.9rem;
-        }
-
-        .footer-links h4, .footer-social h4 {
-            color: var(--gold);
-            margin-bottom: 1.2rem;
-            font-size: 1.1rem;
-        }
-
-        .footer-links ul li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links ul li a {
-            color: #bbb;
-            transition: var(--transition);
-            font-size: 0.95rem;
-        }
-
-        .footer-links ul li a:hover {
-            color: var(--pink-red);
-            padding-left: 5px;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-        }
-
-        .social-icons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.05);
-            color: var(--off-white);
-            transition: var(--transition);
-        }
-
-        .social-icons a:hover {
-            background-color: var(--pink-red);
-            color: #fff;
-            transform: translateY(-3px);
-        }
-
-        .social-icons svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #888;
-            font-size: 0.9rem;
-        }
-
-        /* ==================================================
-           MODAL
-           ================================================== */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            padding: 20px;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            width: 100%;
-            max-width: 500px;
-            border-radius: var(--border-radius);
-            padding: 2.5rem;
-            position: relative;
-            transform: translateY(20px);
-            transition: var(--transition);
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: translateY(0);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            font-size: 1.5rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: var(--transition);
-        }
-
-        .close-modal:hover {
-            color: var(--pink-red);
-        }
-
-        .modal-header {
-            margin-bottom: 2rem;
-        }
-
-        .modal-header h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .modal-header p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .selected-product-box {
-            background-color: var(--off-white);
-            padding: 1rem;
-            border-radius: 4px;
-            border-left: 3px solid var(--gold);
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-        }
-
-        /* ==================================================
-           TOAST NOTIFICATION
-           ================================================== */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #2e7d32;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 4px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 3000;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        /* ==================================================
-           RESPONSIVE MEDIA QUERIES
-           ================================================== */
-        @media (max-width: 900px) {
-            .hero {
-                grid-template-columns: 1fr;
-                text-align: center;
-                padding-top: 3rem;
-            }
-            .hero-content p {
-                margin: 0 auto 2rem auto;
-            }
-            .hero-buttons {
-                justify-content: center;
-            }
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            h2 { font-size: 2rem; }
-            section { padding: 4rem 5%; }
-            
-            /* Mobile Nav */
-            .hamburger {
-                display: flex;
-            }
-            .nav-links {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 70px);
-                background-color: var(--matte-black);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 2rem;
-                transition: var(--transition);
-                z-index: 999;
-            }
-            .nav-links.active {
-                left: 0;
-            }
-            .nav-links a {
-                font-size: 1.2rem;
-            }
-
-            .shipping-grid {
-                grid-template-columns: 1fr;
-            }
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-            .footer-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .social-icons {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-content h1 { font-size: 2.5rem; }
-            .hero-buttons { flex-direction: column; }
-            .route-option { padding: 1rem; }
-            .auth-tabs { flex-direction: column; }
-            .tab-btn { border-bottom: 1px solid #eee; }
-            .tab-btn.active { border-bottom: 3px solid var(--pink-red); }
-            .modal-content { padding: 1.5rem; }
-            .toast {
-                bottom: 20px;
-                right: 20px;
-                left: 20px;
-                text-align: center;
-            }
-        }
-
-        .logo {
-            height: 50px;      /* controls the size — adjust to taste */
-            width: auto;        /* keeps it from stretching/distorting */
-            object-fit: contain;
-            display: block;
-            }
-
-        .faq-contain {
-            display: grid;
-        }
-
-        .faq-question {
-            background: linear-gradient(#fff, #aaa);
-            border-radius: 8px;
-            justify-content: center;
-            align-content: center;
-            padding-top: 17px;
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
   
@@ -1046,7 +12,7 @@
     <nav id="navbar">
         <a href="#home" class="brand app-link">
             <div class="brand">
-                <img src="jenny ceo logo.jpg" alt="logo" class="logo">
+                <img src="img/logo.jpg" alt="logo" class="logo">
             </div>
             JENNYCEO <span class="brand-dot"></span>
         </a>
@@ -1056,15 +22,39 @@
             <span></span>
         </div>
         <ul class="nav-links" id="navLinks">
-            <li><a href="#store" class="app-link">Shop</a></li>
+            <li><a href="#home" class="app-link">Home</a></li>
             <li><a href="#how-it-works" class="app-link">How It Works</a></li>
             <li><a href="#shipping" class="app-link">Shipping & Policies</a></li>
             <li><a href="#academy" class="app-link">Academy</a></li>
-            <li><a href="#contact" class="app-link">Contact</a></li>
-            <li><a href="#store" class="nav-cta app-link">Start Order</a></li>
+            <li><a href="#contact" class="app-link">Contact Us</a></li>
+            <li><a href="#store" class="nav-cta app-link">Start Pre-Order</a></li>
+            <li><a href="#shipping-fees" class="nav-cta app-link">Pay Shipping Fees</a></li>
         </ul>
     </nav>
 
+    <!-- MARQUEE -->
+    <div class="announcement-marquee">
+        <div class="announcement-track">
+            <span>
+            🚢 March 2026 Batch Has Arrived! &nbsp;•&nbsp;
+            Check your email and WhatsApp for your shipping cost.
+            &nbsp;•&nbsp;
+            Pay promptly to avoid demurrage and eventual re-auction.
+            &nbsp;•&nbsp;
+            <a href="#shipping-fees">View Shipping Information →</a>
+            </span>
+
+            <span aria-hidden="true">
+            🚢 March 2026 Batch Has Arrived! &nbsp;•&nbsp;
+            Check your email and WhatsApp for your shipping cost.
+            &nbsp;•&nbsp;
+            Pay promptly to avoid demurrage and eventual re-auction.
+            &nbsp;•&nbsp;
+            <a href="#shipping-fees">View Shipping Information →</a>
+            </span>
+        </div>
+    </div>
+    
     <!-- APP VIEWS CONTAINER -->
     <main class="app-main">
         
@@ -1102,7 +92,7 @@
                 <div class="store-grid">
                     <!-- Products -->
                     <div class="product-card">
-                        <div class="product-image"><img src="shoe.jpg"></div>
+                        <div class="product-image"><img src="img/shoe.jpg"></div>
                         <div class="product-info">
                             <h3>Quality Loafers</h3>
                             <p>High-quality synthetic Loafers. MOQ required for factory pricing.</p>
@@ -1114,7 +104,7 @@
                     </div>
                     
                     <div class="product-card">
-                        <div class="product-image"><img src="kojic.jpg"> </div>
+                        <div class="product-image"><img src="img/kojic.jpg"> </div>
                         <div class="product-info">
                             <h3>Kojic Acid +Vitamin C  SHower Gel</h3>
                             <p>The reviews for this soap is mindblowing and market price is super high.</p>
@@ -1126,7 +116,7 @@
                     </div>
 
                     <div class="product-card">
-                        <div class="product-image"><img src="jbl.jpg"> </div>
+                        <div class="product-image"><img src="img/jbl.jpg"> </div>
                         <div class="product-info">
                             <h3>JBL BoomBox 4</h3>
                             <p>Bought Before. Very satisfying reviews from the customers.</p>
@@ -1138,7 +128,7 @@
                     </div>
 
                     <div class="product-card">
-                        <div class="product-image"><img src="rack.jpg"></div>
+                        <div class="product-image"><img src="img/rack.jpg"></div>
                         <div class="product-info">
                             <h3>Kitchen Rack</h3>
                             <p>High-quality kitchen rack. MOQ required for factory pricing.</p>
@@ -1150,7 +140,7 @@
                     </div>
 
                     <div class="product-card">
-                        <div class="product-image"><img src="powerbank.jpg"></div>
+                        <div class="product-image"><img src="img/powerbank.jpg"></div>
                         <div class="product-info">
                             <h3>Odogwu PowerBank</h3>
                             <p>High-quality 50000mAh Powerbank. Bought more than 100 and the customer reviews are amazing.</p>
@@ -1255,6 +245,17 @@
                     </div>
                 </div>
             </section>
+        </div>
+
+        <!-- VIEW: PAY SHIPPING FEES -->
+        <div id="shipping-fees" class="view-section">
+           <div class="step-card"><h1>
+                🚢 March 2026 Batch Has Arrived! &nbsp;•&nbsp;
+                Check your email and WhatsApp for your shipping cost.
+                &nbsp;•&nbsp;
+                Pay promptly to avoid demurrage and eventual re-auction.
+                &nbsp;•&nbsp;
+            </h1></div>
         </div>
 
         <!-- VIEW: ACADEMY -->
@@ -1433,6 +434,8 @@
                         </form>
                     </div>
                 </div>
+                <br>
+                <br>
                 <div class="faq-contain">
                     <div class="faq-section">
                         <div class="faq-header">
@@ -1445,7 +448,7 @@
                             <div class="step-card">
                             <button class="faq-question">
                                 <span><h3>What does “Pre-Order” mean?</h3></span>                         
-                            </button>
+                            </button><br><br>
                             <div class="faq-answer">
                                 <p>Pre-order means the item is not currently available in Nigeria. Orders are collected and purchased from factories or suppliers in China before being shipped to Nigeria.</p>
                             </div>
@@ -1454,7 +457,7 @@
                             <div class="step-card">
                             <button class="faq-question">
                                 <span><h3>Why do I have to pre-order?</h3></span>
-                            </button>
+                            </button><br><br>
                             <div class="faq-answer">
                                 <p>Pre-ordering allows JENNYCEO to combine customer orders and meet factory minimum order quantities, making it possible to purchase at factory-level prices.</p>
                             </div>
@@ -1463,7 +466,7 @@
                             <div class="step-card">
                             <button class="faq-question">
                                 <span><h3>How does the bulk-order process work?</h3></span>
-                            </button>
+                            </button><br><br>
                             <div class="faq-answer">
                                 <p>Customers select and pay for items during the pre-order period. Orders are consolidated, purchased from suppliers in China and shipped to Nigeria.</p>
                             </div>
@@ -1472,7 +475,7 @@
                             <div class="step-card">
                             <button class="faq-question">
                                 <span><h3>How long does sea shipping take?</h3></span>
-                            </button>
+                            </button><br><br>
                             <div class="faq-answer">
                                 <p>Sea shipping generally takes 2–3 months after the goods leave China. It may arrive sooner, but customers should plan around the maximum estimated period of three months.</p>
                             </div>
@@ -1481,7 +484,7 @@
                             <div class="step-card">
                             <button class="faq-question">
                                 <span><h3>Can I choose air shipping?</h3></span>
-                            </button>
+                            </button><br><br>
                             <div class="faq-answer">
                                 <p>Yes. Air shipping is available for customers who want a faster option. It typically takes 7–14 days after the order leaves China, but it costs more than sea shipping.</p>
                             </div>
@@ -1490,7 +493,7 @@
                             <div class="step-card">
                             <button class="faq-question">
                                 <span><h3>Why can shipping costs change?</h3></span>
-                            </button>
+                            </button><br><br>
                             <div class="faq-answer">
                                 <p>International shipping costs can vary depending on the shipping method, shipment size, prevailing freight rates and other logistics conditions.</p>
                             </div>
@@ -1499,7 +502,7 @@
                             <div class="step-card">
                             <button class="faq-question">
                                 <span><h3>Is shipping included in the product price?</h3></span>
-                            </button>
+                            </button><br><br>
                             <div class="faq-answer">
                                 <p>Shipping is handled separately from the product purchase price. Customers will be informed when the applicable shipping payment is due.</p>
                             </div>
@@ -1508,7 +511,7 @@
                             <div class="step-card">
                             <button class="faq-question">
                                 <span><h3>What happens when my goods arrive in Nigeria?</h3></span>
-                            </button>
+                            </button><br><br>
                             <div class="faq-answer">
                                 <p>Once the goods arrive in Nigeria, customers have 3 days to make the required shipping payment for sea shipments.</p>
                             </div>
@@ -1517,7 +520,7 @@
                             <div class="step-card">
                             <button class="faq-question">
                                 <span><h3>What happens if I don't pay my shipping fee within 3 days?</h3></span>
-                            </button>
+                            </button><br><br>
                             <div class="faq-answer">
                                 <p>Your goods may be held by JENNYCEO and a daily demurrage or storage charge may apply.</p>
                             </div>
@@ -1526,7 +529,7 @@
                             <div class="step-card">
                             <button class="faq-question">
                                 <span><h3>Can my goods eventually be forfeited?</h3></span>
-                            </button>
+                            </button><br><br>
                             <div class="faq-answer">
                                 <p>Yes. If the required payment remains outstanding, the goods may eventually be forfeited and auctioned to recover money spent on the shipment and related costs.</p>
                             </div>
@@ -1535,7 +538,7 @@
                             <div class="step-card">
                             <button class="faq-question">
                                 <span><h3>What if the factory sends the wrong colour or size?</h3></span>
-                            </button>
+                            </button><br><br>
                             <div class="faq-answer">
                                 <p>Factory errors can occur. JENNYCEO cannot guarantee that every item will arrive exactly as expected where the error originates from the factory.</p>
                             </div>
@@ -1544,7 +547,7 @@
                             <div class="step-card">
                             <button class="faq-question">
                                 <span><h3>What if my item is damaged during transportation?</h3></span>
-                            </button>
+                            </button><br><br>
                             <div class="faq-answer">
                                 <p>Damage can occur during international transportation and handling. Customers participate with an understanding of the risks associated with importing goods.</p>
                             </div>
@@ -1553,7 +556,7 @@
                             <div class="step-card">
                             <button class="faq-question">
                                 <span><h3>What if my goods arrive later than expected?</h3></span>
-                            </button>
+                            </button><br><br>
                             <div class="faq-answer">
                                 <p>Shipping timelines are estimates. Delays can occur during international logistics, customs, port operations and other stages of transportation.</p>
                             </div>
@@ -1562,7 +565,7 @@
                             <div class="step-card">
                             <button class="faq-question">
                                 <span><h3>Are there risks involved in pre-ordering?</h3></span>
-                            </button>
+                            </button><br><br>
                             <div class="faq-answer">
                                 <p>Yes. Pre-ordering and importing involve supplier, logistics, transportation and other risks. Customers should understand these risks before participating.</p>
                             </div>
@@ -1571,7 +574,7 @@
                             <div class="step-card">
                             <button class="faq-question">
                                 <span><h3>What should I do before placing a pre-order?</h3></span>
-                            </button>
+                            </button><br><br>
                             <div class="faq-answer">
                                 <p>Read the product details, understand the estimated timeline and shipping arrangements, and make sure you are comfortable with the applicable policies before paying.</p>
                             </div>
@@ -1607,8 +610,10 @@
             <div class="footer-links">
                 <h4>Quick Links</h4>
                 <ul>
+                    <li><a href="#home" class="app-link">Home</a></li>
                     <li><a href="#store" class="app-link">Pre-Order Store</a></li>
                     <li><a href="#shipping" class="app-link">Shipping & Policies</a></li>
+                    <li><a href="#shipping-fees" class="app-link">Shipping Fees</a></li>
                     <li><a href="#academy" class="app-link">Importation Academy</a></li>
                     <li><a href="#contact" class="app-link">Contact Us</a></li>
                 </ul>
@@ -1617,10 +622,13 @@
             <div class="footer-social">
                 <h4>CONTACT US</h4>
                 <div class="social-icons">
-                    <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
-                    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-                    <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-                    <a href="#" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/></svg></a>
+                    <a href="https://whatsapp.com/channel/0029VahB1jiADTO97qqnWY0q" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
+                        
+                    <a href="https://www.youtube.com/@Jenny-CEO" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                     <path d="M23.498 6.186a2.99 2.99 0 0 0-2.105-2.117C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.393.569A2.99 2.99 0 0 0 .502 6.186C0 8.09 0 12 0 12s0 3.91.502 5.814a2.99 2.99 0 0 0 2.105 2.117C4.495 20.5 12 20.5 12 20.5s7.505 0 9.393-.569a2.99 2.99 0 0 0 2.105-2.117C24 15.91 24 12 24 12s0-3.91-.502-5.814ZM9.545 15.568V8.432L15.818 12l-6.273 3.568Z"/>
+                    </svg>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1682,173 +690,6 @@
     <!-- TOAST NOTIFICATION CONTAINER -->
     <div id="toast" class="toast">Action completed successfully!</div>
 
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-        // 1. App Routing / View Switching Logic
-        function switchView(viewId) {
-            // Check if view exists
-            const targetView = document.getElementById(viewId);
-            if (!targetView || !targetView.classList.contains('view-section')) return;
-
-            // Hide all views
-            document.querySelectorAll('.view-section').forEach(view => {
-                view.classList.remove('active');
-            });
-            
-            // Show target view
-            targetView.classList.add('active');
-            
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            // Update Active Nav Link
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + viewId) {
-                    link.classList.add('active');
-                }
-            });
-
-            // Toggle Global Bottom CTA
-            const bottomCta = document.getElementById('global-bottom-cta');
-            if (viewId === 'store' || viewId === 'contact' || viewId === 'academy') {
-                bottomCta.style.display = 'none';
-            } else {
-                bottomCta.style.display = 'block';
-            }
-
-            // Close mobile menu if open
-            if (navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-            }
-        }
-
-        // Intercept App Links
-        document.querySelectorAll('.app-link').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                
-                // Change View
-                switchView(targetId);
-                
-                // Push State to History (to allow native Back/Forward buttons)
-                history.pushState({ view: targetId }, null, '#' + targetId);
-            });
-        });
-
-        // Handle Browser Back/Forward buttons
-        window.addEventListener('popstate', (e) => {
-            const hash = window.location.hash.substring(1);
-            if (hash) {
-                switchView(hash);
-            } else {
-                switchView('home');
-            }
-        });
-
-        // Initialize App based on current URL
-        window.addEventListener('DOMContentLoaded', () => {
-            const hash = window.location.hash.substring(1);
-            if (hash && document.getElementById(hash)) {
-                switchView(hash);
-            } else {
-                switchView('home');
-                history.replaceState({ view: 'home' }, null, '#home');
-            }
-        });
-
-
-        // 2. Mobile Hamburger Menu
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        const navLinks = document.getElementById('navLinks');
-
-        hamburgerBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-
-        // 3. Pre-Order Modal Logic
-        const modal = document.getElementById('preOrderModal');
-        const openModalBtns = document.querySelectorAll('.btn-open-modal');
-        const closeModalBtn = document.getElementById('closeModal');
-        const modalProductName = document.getElementById('modalProductName');
-        const hiddenProductName = document.getElementById('hiddenProductName');
-
-        openModalBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const product = btn.getAttribute('data-product');
-                modalProductName.textContent = product;
-                hiddenProductName.value = product;
-                modal.classList.add('active');
-            });
-        });
-
-        closeModalBtn.addEventListener('click', () => modal.classList.remove('active'));
-        
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) modal.classList.remove('active');
-        });
-
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
-                modal.classList.remove('active');
-            }
-        });
-
-
-        // 4. Login / Signup Tab Switching
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
-            if (tabId === 'login') {
-                document.querySelectorAll('.tab-btn')[0].classList.add('active');
-                document.getElementById('login-tab').classList.add('active');
-            } else {
-                document.querySelectorAll('.tab-btn')[1].classList.add('active');
-                document.getElementById('signup-tab').classList.add('active');
-            }
-        }
-
-
-        // 5. Form Submissions & Demo Notifications
-        const toast = document.getElementById('toast');
-        
-        function showNotification(message) {
-            toast.textContent = message;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-
-        document.querySelectorAll('.demo-form').forEach(form => {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                let message = "Action completed successfully!";
-                
-                if (form.id === 'contactForm') message = "Message submitted for this demo. We'll get back to you!";
-                else if (form.id === 'loginForm') message = "Demo Login successful. Welcome back!";
-                else if (form.id === 'signupForm') message = "Student Account created for this demo!";
-                else if (form.id === 'preOrderForm') {
-                    message = "Pre-Order request received successfully!";
-                    modal.classList.remove('active');
-                }
-                
-                showNotification(message);
-                form.reset();
-            });
-        });
-
-        // 6. Academy Details/Summary Accordion Constraint
-        const detailsElements = document.querySelectorAll('details');
-        detailsElements.forEach(targetDetail => {
-            targetDetail.addEventListener('click', () => {
-                detailsElements.forEach(detail => {
-                    if (detail !== targetDetail) detail.removeAttribute('open');
-                });
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
